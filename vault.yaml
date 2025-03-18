@@ -1,0 +1,4 @@
+mysql_root_password: iDaeKZDGlU5vBLsaoZvt
+mysql_user_password: LNGsgS4rxC7t7KmLaP9q
+mysql_user : admin
+mysql_user_priv: "*.*:ALL"

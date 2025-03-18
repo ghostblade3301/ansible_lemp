@@ -1,0 +1,53 @@
+---
+# tasks file for mysql
+- name: Install mysql server
+  ansible.builtin.apt:
+    name: mysql-server
+    state: present
+    update_cache: true
+
+- name: Enable and start mysql
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: true
+
+- name: Install pymysql via apt
+  ansible.builtin.apt:
+    name: python3-pymysql
+    state: present
+    update_cache: true
+
+- name: Check if root password is already set
+  stat:
+    path: /etc/mysql/root_password_set
+  register: root_password_set
+
+- name: Sets the root password
+  mysql_user:
+    name: root
+    check_implicit_admin: true
+    password: "{{ mysql_root_password }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  when: not root_password_set.stat.exists
+
+- name: Create marker file
+  file:
+    path: /etc/mysql/root_password_set
+    state: touch
+  when: not root_password_set.stat.exists
+
+- name: Removes all anonymous user accounts
+  mysql_user:
+    name: ""
+    host_all: yes
+    state: absent
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+
+- name: Removes the MySQL test database
+  mysql_db:
+    name: test
+    state: absent
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
