@@ -7,18 +7,18 @@
 - name: Download joomla
   ansible.builtin.get_url:
     url: "{{ joomla_download_url }}"
-    dest: /tmp/joomla.zip
+    dest: "{{ joomla_temp_dir }}"
     mode: '0644'
 
 - name: Unzip joomla
   ansible.builtin.unarchive:
-    src: /tmp/joomla.zip
-    dest: /var/www/sites/joomla
+    src: "{{ joomla_temp_dir }}"
+    dest: "{{ path_joomla_site }}"
     remote_src: true
-    owner: www-data
-    group: www-data
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_user }}"
 
 - name: Delete joomla zip file
   ansible.builtin.file:
-    path: /tmp/joomla.zip
+    path: "{{ joomla_temp_dir }}"
     state: absent

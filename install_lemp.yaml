@@ -3,14 +3,11 @@
   become: yes
   vars_files:
     - vault.yaml
-  tasks:
-    - name: Debug user password
-      debug:
-        msg: "{{ mysql_root_password }} {{ mysql_user_password }}"
+
   roles:
-    - nginx
-    - php
-    - mysql
+    # - nginx
+    # - php
+    # - mysql
     - initapps
     - joomla
 

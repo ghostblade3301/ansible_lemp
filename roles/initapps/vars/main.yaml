@@ -1,0 +1,5 @@
+path_nginx_available_default_conf: "/etc/nginx/sites-available/default"
+path_nginx_enabled_conf: "/etc/nginx/sites-enabled/default"
+path_nginx_available_joomla_conf: "/etc/nginx/sites-available/joomla.conf"
+path_nginx_enabled_joomla_conf: "/etc/nginx/sites-enabled/joomla.conf"
+db_name: "joomla"

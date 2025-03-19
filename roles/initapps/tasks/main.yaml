@@ -1,16 +1,24 @@
+- name: Remove default.conf
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ path_nginx_available_default_conf }}"
+    - "{{ path_nginx_enabled_conf }}"
+
 - name: Create Joomla directory
   ansible.builtin.file:
-    path: /var/www/sites/joomla
+    path: "{{ path_joomla_site }}"
     state: directory
-    owner: www-data
-    group: www-data
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_user }}"
     mode: '0755'
 
 - name: Ensure permissions are set correctly
   ansible.builtin.file:
-    path: /var/www/sites/joomla
-    owner: www-data
-    group: www-data
+    path: "{{ path_joomla_site }}"
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_user }}"
     recurse: true
 
 - name: Create mysql user for joomla
@@ -24,7 +32,7 @@
 
 - name: Create mysql database for Joomla
   community.mysql.mysql_db:
-    name: joomla
+    name: "{{ db_name }}"
     state: present
     login_user: root
     login_password: "{{ mysql_root_password }}"
@@ -32,7 +40,7 @@
 - name: Create joomla nginx configuration file
   ansible.builtin.template:
     src: joomla.conf.j2
-    dest: /etc/nginx/sites-available/joomla.conf
+    dest: "{{ path_nginx_available_joomla_conf }}"
     owner: root
     group: root
     mode: '0644'
@@ -40,7 +48,7 @@
 
 - name: Create symbolic link for joomla site
   ansible.builtin.file:
-    src: /etc/nginx/sites-available/joomla.conf
-    dest: /etc/nginx/sites-enabled/joomla.conf
+    src: "{{ path_nginx_available_joomla_conf }}"
+    dest: "{{ path_nginx_enabled_joomla_conf }}"
     state: link
   notify: Restart nginx
