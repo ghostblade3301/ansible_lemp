@@ -43,7 +43,7 @@
     dest: "{{ path_nginx_available_joomla_conf }}"
     owner: root
     group: root
-    mode: '0644'
+    mode: "{{ default_file_mode }}"
   notify: Restart nginx
 
 - name: Create symbolic link for joomla site

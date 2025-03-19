@@ -1,2 +1,4 @@
 path_joomla_site: "/var/www/sites/joomla"
 nginx_user: "www-data"
+default_file_mode: "0644"
+default_dir_mode: "0755"

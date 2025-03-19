@@ -19,12 +19,12 @@
     update_cache: true
 
 - name: Check if root password is already set
-  stat:
+  ansible.builtin.stat:
     path: /etc/mysql/root_password_set
   register: root_password_set
 
 - name: Sets the root password
-  mysql_user:
+  community.mysql.mysql_user:
     name: root
     check_implicit_admin: true
     password: "{{ mysql_root_password }}"
@@ -32,21 +32,22 @@
   when: not root_password_set.stat.exists
 
 - name: Create marker file
-  file:
+  ansible.builtin.file:
     path: /etc/mysql/root_password_set
     state: touch
+    mode: "{{ default_file_mode }}"
   when: not root_password_set.stat.exists
 
 - name: Removes all anonymous user accounts
-  mysql_user:
+  community.mysql.mysql_user:
     name: ""
-    host_all: yes
+    host_all: true
     state: absent
     login_user: root
     login_password: "{{ mysql_root_password }}"
 
 - name: Removes the MySQL test database
-  mysql_db:
+  community.mysql.mysql_db:
     name: test
     state: absent
     login_user: root
