@@ -24,3 +24,7 @@ http://ip-адрес-вашего-сервера/installation/index.php
 Структура файла vault.yaml показана в файле vault.example
 
 ![03](https://github.com/ghostblade3301/ansible_lemp/blob/main/screenshots/03.jpg)
+8. Пароль для vault.yaml.
+```
+123456
+```
