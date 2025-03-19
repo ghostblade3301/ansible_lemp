@@ -1,9 +1,9 @@
 all:
   hosts:
     web01:
-      ansible_host: "158.160.77.225"
+      ansible_host: "158.160.95.16"
       ansible_user: "user"
-      ansible_password: "aydestv"
+      ansible_password: "eaogoca"
       ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   children:
     webservers:
