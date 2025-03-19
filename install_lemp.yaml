@@ -5,9 +5,9 @@
     - vault.yaml
 
   roles:
-    # - nginx
-    # - php
-    # - mysql
+    - nginx
+    - php
+    - mysql
     - initapps
     - joomla
 
