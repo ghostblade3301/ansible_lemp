@@ -12,9 +12,9 @@ ansible-playbook install_lemp.yaml -i inventory.yaml -b -K --ask-vault-pass
 http://ip-адрес-вашего-сервера/installation/index.php
 ```
 4. Далее указываем название вашего сайта. 
-![01](image.png)
+![01](https://github.com/ghostblade3301/ansible_lemp/blob/main/screenshots/01.jpg)
 5. Затем необходимо будет указать логин и пароль администратора. Он не должен быть короче 12 символов.
-![02](image.png)
-6. Далее, для заполнения полей используем переменные и их значения из файла vault.yaml
+![02](https://github.com/ghostblade3301/ansible_lemp/blob/main/screenshots/02.jpg)
+6. Далее, для заполнения полей используем переменные и их значения из файла vault.yaml.
 Структура файла vault.yaml показана в файле vault.example
-![03](image.png)
+![03](https://github.com/ghostblade3301/ansible_lemp/blob/main/screenshots/03.jpg)
